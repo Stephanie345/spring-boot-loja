@@ -1,6 +1,4 @@
-create schema db_loja
-default character set utf8
-default collate utf8_general_ci;
+create schema db_loja;
 
 use db_loja;
 
@@ -16,8 +14,7 @@ CREATE TABLE IF NOT EXISTS `db_loja`.`clientes` (
   `cpf` CHAR(11) NOT NULL,
   `telefone` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id_cliente`)
-)default charset = utf8
-ENGINE = InnoDB;
+);
 
 
 CREATE TABLE IF NOT EXISTS `db_loja`.`vendas` (
@@ -32,8 +29,7 @@ CREATE TABLE IF NOT EXISTS `db_loja`.`vendas` (
     REFERENCES `db_loja`.`clientes` (`id_cliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)default charset = utf8
-ENGINE = InnoDB;
+);
 
 CREATE TABLE IF NOT EXISTS `db_loja`.`produtos` (
   `id_produto` INT NOT NULL AUTO_INCREMENT,
@@ -41,8 +37,7 @@ CREATE TABLE IF NOT EXISTS `db_loja`.`produtos` (
   `preco` DECIMAL(8,2) NOT NULL,
   `quant_estoque` DECIMAL(4,0) NOT NULL,
   PRIMARY KEY (`id_produto`)
-)default charset = utf8
-ENGINE = InnoDB;
+);
 
 CREATE TABLE IF NOT EXISTS `db_loja`.`itens_vendas` (
   `id_venda` INT NOT NULL,
@@ -59,5 +54,7 @@ CREATE TABLE IF NOT EXISTS `db_loja`.`itens_vendas` (
     REFERENCES `db_loja`.`produtos` (`id_produto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)default charset = utf8
-ENGINE = InnoDB
+)
+
+
+
