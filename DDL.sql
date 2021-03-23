@@ -2,9 +2,9 @@ create schema db_loja;
 
 use db_loja;
 
-create user 'root'@'localhost' identified by 'root123';
+create user stephanie@localhost identified by 'pass123';
 
-grant select, insert, delete, update on db_loja.* to user@'localhost';
+grant select, insert, delete, update on db_loja.* to stephanie@localhost;
 
 
 
