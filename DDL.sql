@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS db_loja.clientes (
   valor DECIMAL(10,2) NOT NULL,
   id_cliente BIGINT NOT NULL,
   PRIMARY KEY (id_venda),
-  INDEX fk_vendas_clientes_idx (id_cliente ASC),
+  INDEX fk_vendas_clientes_id_cliente (id_cliente ASC),
   CONSTRAINT fk_vendas_clientes
     FOREIGN KEY (id_cliente)
     REFERENCES db_loja.clientes (id_cliente)
@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS db_loja.produtos (
 CREATE TABLE IF NOT EXISTS db_loja.itens_vendas (
   id_venda BIGINT NOT NULL,
   id_produto BIGINT NOT NULL,
-  INDEX fk_vendas_has_produtos_produtos1_idx (id_produto ASC),
-  INDEX fk_vendas_has_produtos_vendas1_idx (id_venda ASC),
+  INDEX fk_vendas_has_produtos_produtos1_id_produto (id_produto ASC),
+  INDEX fk_vendas_has_produtos_vendas1_id_venda (id_venda ASC),
   CONSTRAINT fk_vendas_has_produtos_vendas1
     FOREIGN KEY (id_venda)
     REFERENCES db_loja.vendas (id_venda)

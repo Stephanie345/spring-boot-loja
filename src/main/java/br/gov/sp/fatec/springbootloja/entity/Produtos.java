@@ -1,12 +1,15 @@
 package br.gov.sp.fatec.springbootloja.entity;
 
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,11 +25,16 @@ public class Produtos {
     private String descricao;
 
     @Column(name = "preco")
-    private DecimalFormat  preco;
+    private BigDecimal  preco;
 
     @Column(name = "quant_estoque")
-    private DecimalFormat  quantidade;
+    private BigDecimal  quantidade;
 
+     
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "produtos")
+    private Set<Vendas> vendas;
+
+     
     
     public Long getId() {
         return this.id;
@@ -44,19 +52,27 @@ public class Produtos {
         this.descricao = descricao;
     }
 
-    public DecimalFormat getPreco() {
+    public BigDecimal getPreco() {
         return this.preco;
     }
 
-    public void setPreco(DecimalFormat preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
-    public DecimalFormat getQuantidade() {
+    public BigDecimal getQuantidade() {
         return this.quantidade;
     }
 
-    public void setQuantidade(DecimalFormat quantidade) {
+    public void setQuantidade(BigDecimal quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public Set<Vendas> getVendas() {
+        return this.vendas;
+    }
+
+    public void setVendas(Set<Vendas> vendas) {
+        this.vendas = vendas;
     }
 }
