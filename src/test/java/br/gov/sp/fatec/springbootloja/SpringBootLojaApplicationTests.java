@@ -7,8 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import br.gov.sp.fatec.springbootloja.entity.Clientes;
 import br.gov.sp.fatec.springbootloja.entity.Produtos;
+import br.gov.sp.fatec.springbootloja.entity.Vendas;
 import br.gov.sp.fatec.springbootloja.respository.ClientesRepository;
 import br.gov.sp.fatec.springbootloja.respository.ProdutosRepository;
+import br.gov.sp.fatec.springbootloja.respository.VendasRepository;
 
 
 @SpringBootTest
@@ -19,6 +21,9 @@ class SpringBootLojaApplicationTests {
 
     @Autowired
     private ProdutosRepository produtosRepo;
+
+    @Autowired
+    private VendasRepository vendasRepo;
 
 	@Test
 	void contextLoads() {
@@ -36,9 +41,15 @@ class SpringBootLojaApplicationTests {
     }
 
     @Test
-    void testaItensVendas() {
+    void testaVendas() {
         Produtos produtos = produtosRepo.findById(1L).get();
-        assertEquals("2021-03-29", produtos.getVendas().iterator().next().getData());
+        assertEquals("2021-03-29", produtos.getVendas().iterator().next().getData().toString());
+    }
+
+    @Test
+    void testaProdutos() {
+        Vendas vendas = vendasRepo.findById(1L).get();
+        assertEquals("2.50", vendas.getProdutos().iterator().next().getPreco().toString());
     }
 
 
