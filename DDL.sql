@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS db_loja.clientes (
   
   CREATE TABLE IF NOT EXISTS db_loja.vendas (
   id_venda BIGINT NOT NULL AUTO_INCREMENT,
-  data DATE NOT NULL,
+  data_venda DATE NOT NULL,
   valor DECIMAL(10,2) NOT NULL,
   id_cliente BIGINT NOT NULL,
   PRIMARY KEY (id_venda),
@@ -50,4 +50,8 @@ CREATE TABLE IF NOT EXISTS db_loja.itens_vendas (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+insert into clientes(nome,cpf,telefone) values ('Sofia','1245678909','1234567890');
+insert into vendas(data_venda,valor,id_cliente) values ('2021-03-29','2.5','1');
+insert into produtos(descricao,preco,quant_estoque) values ('linha','2.5','10');
+insert into itens_vendas values(1,1);
 

@@ -43,7 +43,7 @@ class SpringBootLojaApplicationTests {
     @Test
     void testaVendas() {
         Produtos produtos = produtosRepo.findById(1L).get();
-        assertEquals("2021-03-29", produtos.getVendas().iterator().next().getData().toString());
+        assertEquals("2021-03-29", produtos.getVendas().iterator().next().getData_venda().toString());
     }
 
     @Test

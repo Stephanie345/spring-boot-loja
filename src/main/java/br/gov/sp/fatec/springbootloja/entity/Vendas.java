@@ -27,8 +27,8 @@ public class Vendas {
     @Column(name = "id_cliente")
     private Long id_clientes;
 
-    @Column(name = "data")
-    private Date data;
+    @Column(name = "data_venda")
+    private Date data_venda;
 
     @Column(name = "valor")
     private BigDecimal  valor;
@@ -56,12 +56,12 @@ public class Vendas {
         this.id_clientes = id_clientes;
     }
 
-    public Date getData() {
-        return this.data;
+    public Date getData_venda() {
+        return this.data_venda;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setData_venda(Date data_venda) {
+        this.data_venda = data_venda;
     }
 
     public BigDecimal getValor() {
