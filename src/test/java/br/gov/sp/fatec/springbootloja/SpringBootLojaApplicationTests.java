@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -22,8 +23,8 @@ import br.gov.sp.fatec.springbootloja.respository.VendasRepository;
 
 
 @SpringBootTest
-//@Transactional
-//@Rollback
+@Transactional
+@Rollback
 class SpringBootLojaApplicationTests {
 
     @Autowired
@@ -44,7 +45,7 @@ class SpringBootLojaApplicationTests {
     void testaInsercao() {
         Clientes clientes = new Clientes();
         clientes.setNome("Stephanie");
-        clientes.setCpf("95345270808");
+        clientes.setCpf("59345270808");
         clientes.setTelefone("(12)32098765");
         clientesRepo.save(clientes);
         assertNotNull(clientes.getId());
@@ -54,7 +55,7 @@ class SpringBootLojaApplicationTests {
         Vendas vendas = new Vendas();
         Clientes clientes = new Clientes();
         clientes.setNome("Stephanie");
-        clientes.setCpf("55645570808");
+        clientes.setCpf("75645570808");
         clientes.setTelefone("(12)32598765");
         clientesRepo.save(clientes);
         vendas.setData_venda(LocalDate.parse("2021-04-05"));
@@ -75,7 +76,7 @@ class SpringBootLojaApplicationTests {
         Vendas vendas = new Vendas();
         Clientes clientes = new Clientes();
         clientes.setNome("Stephanie");
-        clientes.setCpf("15155570808");
+        clientes.setCpf("15155572808");
         clientes.setTelefone("(12)34598765");
         clientesRepo.save(clientes);
         vendas.setData_venda(LocalDate.parse("2021-04-05"));
@@ -102,6 +103,31 @@ class SpringBootLojaApplicationTests {
         Vendas vendas = vendasRepo.findById(1L).get();
         assertEquals("2.50", vendas.getProdutos().iterator().next().getPreco().toString());
     }
+
+    @Test
+    void testaBuscaClienteNomeConatins() {
+        List<Clientes> clientes = clientesRepo.findByNomeContainsIgnoreCase("E");
+        assertFalse(clientes.isEmpty());
+    }
+
+    @Test
+    void testaBuscaClienteNome() {
+        Clientes clientes = clientesRepo.findByNome("Sofia");
+        assertNotNull(clientes);
+    }
+
+    @Test
+    void testaBuscaClienteNomeCpf() {
+        Clientes clientes = clientesRepo.findByNomeAndTelefone("Stephanie", "(12)34598765");
+        assertNotNull(clientes);
+    }
+
+    @Test
+    void testaBuscaVendasDescricaoProdutos() {
+        List<Vendas> vendas = vendasRepo.findByProdutosDescricao("linha");
+        assertFalse(vendas.isEmpty());
+    }
+
 
 
 }
