@@ -117,14 +117,33 @@ class SpringBootLojaApplicationTests {
     }
 
     @Test
+    void testaBuscaClienteNomeQuery() {
+        Clientes clientes = clientesRepo.buscaClientePorNome("Sofia");
+        assertNotNull(clientes);
+    }
+
+
+    @Test
     void testaBuscaClienteNomeCpf() {
         Clientes clientes = clientesRepo.findByNomeAndTelefone("Stephanie", "(12)34598765");
         assertNotNull(clientes);
     }
 
     @Test
+    void testaBuscaClienteNomeCpfQuery() {
+        Clientes clientes = clientesRepo.buscaClientePorNomeETelefone("Stephanie", "(12)34598765");
+        assertNotNull(clientes);
+    }
+
+    @Test
     void testaBuscaVendasDescricaoProdutos() {
         List<Vendas> vendas = vendasRepo.findByProdutosDescricao("linha");
+        assertFalse(vendas.isEmpty());
+    }
+
+    @Test
+    void testaBuscaVendasDescricaoProdutosQuery() {
+        List<Vendas> vendas = vendasRepo.buscaPorNomeDescricao("linha");
         assertFalse(vendas.isEmpty());
     }
 
