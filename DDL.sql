@@ -10,7 +10,7 @@ grant select, insert, delete, update on db_loja.* to stephanie@localhost;
 CREATE TABLE IF NOT EXISTS db_loja.clientes (
   id_cliente BIGINT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(45) NOT NULL,
-  cpf VARCHAR(11) NOT NULL,
+  cpf VARCHAR(11) NOT NULL unique,
   telefone VARCHAR(15) NOT NULL,
   PRIMARY KEY (id_cliente));
   

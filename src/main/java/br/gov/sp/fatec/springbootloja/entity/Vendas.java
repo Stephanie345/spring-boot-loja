@@ -1,7 +1,7 @@
 package br.gov.sp.fatec.springbootloja.entity;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,11 +25,12 @@ public class Vendas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "id_cliente")
-    private Long id_clientes;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_cliente")
+    private Clientes clientes;
 
     @Column(name = "data_venda")
-    private Date data_venda;
+    private LocalDate data_venda;
 
     @Column(name = "valor")
     private BigDecimal  valor;
@@ -48,19 +50,19 @@ public class Vendas {
         this.id = id;
     }
 
-    public Long getId_clientes() {
-        return this.id_clientes;
+    public Clientes getClientes() {
+        return this.clientes;
     }
 
-    public void setId_clientes(Long id_clientes) {
-        this.id_clientes = id_clientes;
+    public void setClientes(Clientes clientes) {
+        this.clientes = clientes;
     }
 
-    public Date getData_venda() {
+    public LocalDate getData_venda() {
         return this.data_venda;
     }
 
-    public void setData_venda(Date data_venda) {
+    public void setData_venda(LocalDate data_venda) {
         this.data_venda = data_venda;
     }
 
@@ -68,7 +70,7 @@ public class Vendas {
         return this.valor;
     }
 
-    public void setData(BigDecimal valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

@@ -33,7 +33,7 @@ public class Produtos {
     private BigDecimal  quantidade;
 
      
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "produtos")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "produtos")
     private Set<Vendas> vendas;
 
      

@@ -2,8 +2,16 @@ package br.gov.sp.fatec.springbootloja;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.HashSet;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import br.gov.sp.fatec.springbootloja.entity.Clientes;
 import br.gov.sp.fatec.springbootloja.entity.Produtos;
@@ -14,6 +22,8 @@ import br.gov.sp.fatec.springbootloja.respository.VendasRepository;
 
 
 @SpringBootTest
+@Transactional
+@Rollback
 class SpringBootLojaApplicationTests {
 
     @Autowired
@@ -34,12 +44,32 @@ class SpringBootLojaApplicationTests {
     void testaInsercao() {
         Clientes clientes = new Clientes();
         clientes.setNome("Stephanie");
-        clientes.setCpf("48341260808");
+        clientes.setCpf("95345270808");
         clientes.setTelefone("(12)32098765");
         clientesRepo.save(clientes);
         assertNotNull(clientes.getId());
     }
-
+    @Test
+    void testaInsercaoVendas() {
+        Vendas vendas = new Vendas();
+        Clientes clientes = new Clientes();
+        clientes.setNome("Stephanie");
+        clientes.setCpf("55645570808");
+        clientes.setTelefone("(12)32598765");
+        clientesRepo.save(clientes);
+        vendas.setData_venda(LocalDate.parse("2021-04-05"));
+        vendas.setValor(BigDecimal.valueOf(3.5));
+        vendas.setClientes(clientes);
+        vendas.setProdutos(new HashSet<Produtos>());
+        Produtos prod = new Produtos();
+        prod.setDescricao("tinta");
+        prod.setPreco(BigDecimal.valueOf(3.5));
+        prod.setQuantidade(BigDecimal.valueOf(10));
+        produtosRepo.save(prod);
+        vendas.getProdutos().add(prod);
+        vendasRepo.save(vendas);
+        assertNotNull(vendas.getProdutos().iterator().next().getId());
+    }
     @Test
     void testaVendas() {
         Produtos produtos = produtosRepo.findById(1L).get();
