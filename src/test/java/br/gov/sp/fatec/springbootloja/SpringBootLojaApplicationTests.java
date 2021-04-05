@@ -22,8 +22,8 @@ import br.gov.sp.fatec.springbootloja.respository.VendasRepository;
 
 
 @SpringBootTest
-@Transactional
-@Rollback
+//@Transactional
+//@Rollback
 class SpringBootLojaApplicationTests {
 
     @Autowired
@@ -69,6 +69,27 @@ class SpringBootLojaApplicationTests {
         vendas.getProdutos().add(prod);
         vendasRepo.save(vendas);
         assertNotNull(vendas.getProdutos().iterator().next().getId());
+    }
+    @Test
+    void testaInsercaoProdutos() {
+        Vendas vendas = new Vendas();
+        Clientes clientes = new Clientes();
+        clientes.setNome("Stephanie");
+        clientes.setCpf("15155570808");
+        clientes.setTelefone("(12)34598765");
+        clientesRepo.save(clientes);
+        vendas.setData_venda(LocalDate.parse("2021-04-05"));
+        vendas.setValor(BigDecimal.valueOf(3.5));
+        vendas.setClientes(clientes);
+        vendasRepo.save(vendas);
+        Produtos prod = new Produtos();
+        prod.setDescricao("tinta");
+        prod.setPreco(BigDecimal.valueOf(3.5));
+        prod.setQuantidade(BigDecimal.valueOf(10));
+        prod.setVendas(new HashSet<Vendas>());
+        prod.getVendas().add(vendas);
+        produtosRepo.save(prod);
+        assertNotNull(prod.getVendas().iterator().next().getId());
     }
     @Test
     void testaVendas() {
