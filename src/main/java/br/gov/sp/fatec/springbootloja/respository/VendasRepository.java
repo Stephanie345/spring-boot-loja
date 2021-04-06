@@ -1,6 +1,6 @@
 package br.gov.sp.fatec.springbootloja.respository;
 
-import java.math.BigDecimal;
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
