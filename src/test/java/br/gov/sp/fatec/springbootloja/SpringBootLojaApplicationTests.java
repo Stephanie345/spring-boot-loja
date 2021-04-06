@@ -20,6 +20,7 @@ import br.gov.sp.fatec.springbootloja.entity.Vendas;
 import br.gov.sp.fatec.springbootloja.respository.ClientesRepository;
 import br.gov.sp.fatec.springbootloja.respository.ProdutosRepository;
 import br.gov.sp.fatec.springbootloja.respository.VendasRepository;
+import br.gov.sp.fatec.springbootloja.service.SegurancaService;
 
 
 @SpringBootTest
@@ -35,6 +36,9 @@ class SpringBootLojaApplicationTests {
 
     @Autowired
     private VendasRepository vendasRepo;
+
+    @Autowired
+    private SegurancaService segService;
 
 	@Test
 	void contextLoads() {
@@ -145,6 +149,12 @@ class SpringBootLojaApplicationTests {
     void testaBuscaVendasDescricaoProdutosQuery() {
         List<Vendas> vendas = vendasRepo.buscaPorNomeDescricao("linha");
         assertFalse(vendas.isEmpty());
+    }
+
+    @Test
+    void testaServicoRealizaVenda(){
+        Vendas vendas = segService.realizarVenda(LocalDate.parse("2021-04-06"),BigDecimal.valueOf(4.5),"agulha",BigDecimal.valueOf(4.5),BigDecimal.valueOf(10));
+        assertNotNull(vendas);
     }
 
 
