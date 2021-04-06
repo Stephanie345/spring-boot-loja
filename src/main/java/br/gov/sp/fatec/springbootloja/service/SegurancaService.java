@@ -7,6 +7,6 @@ import br.gov.sp.fatec.springbootloja.entity.Vendas;
 
 public interface SegurancaService {
 
-    public Vendas realizarVenda(LocalDate data_venda, BigDecimal valor, String descricao, BigDecimal preco,BigDecimal quantidade);
+    public Vendas realizarVenda(LocalDate data_venda, BigDecimal valor, String descricao, String cpf)throws Exception;
     
 }

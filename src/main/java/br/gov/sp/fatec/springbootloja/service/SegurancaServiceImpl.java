@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.gov.sp.fatec.springbootloja.entity.Clientes;
 import br.gov.sp.fatec.springbootloja.entity.Produtos;
 import br.gov.sp.fatec.springbootloja.entity.Vendas;
+import br.gov.sp.fatec.springbootloja.respository.ClientesRepository;
 import br.gov.sp.fatec.springbootloja.respository.ProdutosRepository;
 import br.gov.sp.fatec.springbootloja.respository.VendasRepository;
 
@@ -22,23 +24,30 @@ public class SegurancaServiceImpl implements SegurancaService {
     @Autowired
     private VendasRepository vendasRepo;
     
+    @Autowired
+    private ClientesRepository clientesRepo;
+
     @Transactional
-    public Vendas realizarVenda(LocalDate data_venda, BigDecimal valor, String descricao, BigDecimal preco,BigDecimal quantidade, Long clientes ) {
+    public Vendas realizarVenda(LocalDate data_venda, BigDecimal valor, String descricao, String cpf) throws Exception {
         Produtos prod = produtosRepo.findByDescricao(descricao);
-        if(prod == null){
+        Clientes cli = clientesRepo.findByCpf(cpf);
+        if(cli != null){
+           if(prod == null){
             prod = new Produtos();
             prod.setDescricao(descricao);
-            prod.setPreco(preco);
-            prod.setQuantidade(quantidade);
             produtosRepo.save(prod);
+            }
+            Vendas vendas = new Vendas();
+            vendas.setData_venda(data_venda);
+            vendas.setValor(valor);
+            vendas.setClientes(cli);
+            vendas.setProdutos(new HashSet<Produtos>());
+            vendas.getProdutos().add(prod);
+            vendasRepo.save(vendas);
+            return vendas;
         }
-        Vendas vendas = new Vendas();
-        vendas.setData_venda(data_venda);
-        vendas.setValor(valor);
-        vendas.setProdutos(new HashSet<Produtos>());
-        vendas.getProdutos().add(prod);
-        vendasRepo.save(vendas);
-        return vendas;
+        throw new Exception("Cliente não encontrado");
+        
     }
     
 }

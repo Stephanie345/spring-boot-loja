@@ -13,12 +13,16 @@ public interface ClientesRepository extends JpaRepository<Clientes, Long> {
 
     public Clientes findByNome(String nome);
 
+    public Clientes findByCpf(String cpf);
+
     @Query("select c from Clientes c where c.nome = ?1")
     public Clientes buscaClientePorNome(String nome);
 
 
     public Clientes findByNomeAndTelefone(String nome, String telefone);
 
-     @Query("select c from Clientes c where c.nome = ?1 and c.telefone = ?2")
+    @Query("select c from Clientes c where c.nome = ?1 and c.telefone = ?2")
     public Clientes buscaClientePorNomeETelefone(String nome, String telefone);
+
+   
 }

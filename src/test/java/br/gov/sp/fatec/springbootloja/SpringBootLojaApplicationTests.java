@@ -109,8 +109,8 @@ class SpringBootLojaApplicationTests {
     }
 
     @Test
-    void testaBuscaClienteNomeConatins() {
-        List<Clientes> clientes = clientesRepo.findByNomeContainsIgnoreCase("E");
+    void testaBuscaClienteNomeContains() {
+        List<Clientes> clientes = clientesRepo.findByNomeContainsIgnoreCase("S");
         assertFalse(clientes.isEmpty());
     }
 
@@ -128,14 +128,14 @@ class SpringBootLojaApplicationTests {
 
 
     @Test
-    void testaBuscaClienteNomeCpf() {
-        Clientes clientes = clientesRepo.findByNomeAndTelefone("Stephanie", "(12)34598765");
+    void testaBuscaClienteNomeTelefone() {
+        Clientes clientes = clientesRepo.findByNomeAndTelefone("Sofia", "1234567890");
         assertNotNull(clientes);
     }
 
     @Test
     void testaBuscaClienteNomeCpfQuery() {
-        Clientes clientes = clientesRepo.buscaClientePorNomeETelefone("Stephanie", "(12)34598765");
+        Clientes clientes = clientesRepo.buscaClientePorNomeETelefone("Sofia", "1234567890");
         assertNotNull(clientes);
     }
 
@@ -152,11 +152,18 @@ class SpringBootLojaApplicationTests {
     }
 
     @Test
-    void testaServicoRealizaVenda(){
-        Vendas vendas = segService.realizarVenda(LocalDate.parse("2021-04-06"),BigDecimal.valueOf(4.5),"agulha",BigDecimal.valueOf(4.5),BigDecimal.valueOf(10));
+    void testaServicoRealizaVenda() throws Exception {
+        Vendas vendas = segService.realizarVenda(LocalDate.parse("2021-03-29"),BigDecimal.valueOf(2.5),"linha","1245678909");
         assertNotNull(vendas);
     }
 
+    @Test
+    void testaBuscaPorProdutosCpfQuery() {
+        List<Produtos> produtos = produtosRepo.buscaPorProdutosCpf("1245678909");
+        assertNotNull(produtos);
+    }
+
+   
 
 
 }

@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.springbootloja.respository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +14,9 @@ public interface VendasRepository extends JpaRepository<Vendas, Long>{
 
     @Query("select c from Vendas c inner join c.produtos p where p.descricao =?1")
     public List<Vendas> buscaPorNomeDescricao(String descricao);
+
+    
+
+  
     
 }
