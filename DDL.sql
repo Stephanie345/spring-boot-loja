@@ -1,6 +1,11 @@
+drop schema if exists db_loja;
 create schema db_loja;
 
 use db_loja;
+
+drop user 'stephanie'@'localhost';
+
+
 
 create user stephanie@localhost identified by 'pass123';
 
