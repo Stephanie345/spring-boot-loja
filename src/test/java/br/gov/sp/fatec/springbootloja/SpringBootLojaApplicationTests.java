@@ -67,6 +67,7 @@ class SpringBootLojaApplicationTests {
         vendas.setClientes(clientes);
         vendas.setProdutos(new HashSet<Produtos>());
         Produtos prod = new Produtos();
+        prod.setCodProduto(3L);
         prod.setDescricao("tinta");
         prod.setPreco(BigDecimal.valueOf(3.5));
         prod.setQuantidade(BigDecimal.valueOf(10));
@@ -88,6 +89,7 @@ class SpringBootLojaApplicationTests {
         vendas.setClientes(clientes);
         vendasRepo.save(vendas);
         Produtos prod = new Produtos();
+        prod.setCodProduto(2L);
         prod.setDescricao("tinta");
         prod.setPreco(BigDecimal.valueOf(3.5));
         prod.setQuantidade(BigDecimal.valueOf(10));
@@ -153,8 +155,10 @@ class SpringBootLojaApplicationTests {
 
     @Test
     void testaServicoRealizaVenda() throws Exception {
-        Vendas vendas = segService.realizarVenda(LocalDate.parse("2021-03-29"),BigDecimal.valueOf(2.5),"linha","1245678909");
-        assertNotNull(vendas);
+    	Long codProduto;
+    	codProduto=1L;
+        Vendas vendas = segService.realizarVenda(LocalDate.parse("2021-03-29"),BigDecimal.valueOf(2.5),"linha","1245678909", codProduto,"Sofia");
+        assertNotNull(vendas.getId());
     }
 
     @Test

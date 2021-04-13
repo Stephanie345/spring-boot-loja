@@ -13,5 +13,7 @@ public interface ProdutosRepository extends JpaRepository<Produtos, Long>{
 
     @Query("select p from Produtos p inner join p.vendas v inner join v.clientes c where c.cpf =?1")
     public List<Produtos> buscaPorProdutosCpf(String cpf);
+
+    public Produtos findByCodProduto(Long codProduto);
     
 }

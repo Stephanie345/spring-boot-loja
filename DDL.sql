@@ -5,8 +5,6 @@ use db_loja;
 
 drop user 'stephanie'@'localhost';
 
-
-
 create user stephanie@localhost identified by 'pass123';
 
 grant select, insert, delete, update on db_loja.* to stephanie@localhost;
@@ -16,7 +14,7 @@ CREATE TABLE IF NOT EXISTS db_loja.clientes (
   id_cliente BIGINT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(45) NOT NULL,
   cpf VARCHAR(11) NOT NULL unique,
-  telefone VARCHAR(15) NOT NULL,
+  telefone VARCHAR(15) NULL,
   PRIMARY KEY (id_cliente));
   
   CREATE TABLE IF NOT EXISTS db_loja.vendas (
@@ -34,6 +32,7 @@ CREATE TABLE IF NOT EXISTS db_loja.clientes (
 
 CREATE TABLE IF NOT EXISTS db_loja.produtos (
   id_produto BIGINT NOT NULL AUTO_INCREMENT,
+  cod_produto BIGINT NOT NULL unique,
   descricao VARCHAR(120) NOT NULL,
   preco DECIMAL(8,2) NOT NULL,
   quant_estoque DECIMAL(4,0) NOT NULL,

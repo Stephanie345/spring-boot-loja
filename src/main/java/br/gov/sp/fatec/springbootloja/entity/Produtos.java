@@ -32,6 +32,9 @@ public class Produtos {
     @Column(name = "quant_estoque")
     private BigDecimal  quantidade;
 
+    @Column(name = "cod_produto")
+    private Long  codProduto;
+
      
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "produtos")
     private Set<Vendas> vendas;
@@ -44,6 +47,14 @@ public class Produtos {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCodProduto() {
+        return this.codProduto;
+    }
+
+    public void setCodProduto(Long codProduto) {
+        this.codProduto = codProduto;
     }
 
     public String getDescricao() {
@@ -70,6 +81,7 @@ public class Produtos {
         this.quantidade = quantidade;
     }
 
+    
     public Set<Vendas> getVendas() {
         return this.vendas;
     }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,26 +29,23 @@ public class SegurancaServiceImpl implements SegurancaService {
     private ClientesRepository clientesRepo;
 
     @Transactional
-    public Vendas realizarVenda(LocalDate data_venda, BigDecimal valor, String descricao, String cpf) throws Exception {
-        Produtos prod = produtosRepo.findByDescricao(descricao);
+    public Vendas realizarVenda(LocalDate data_venda, BigDecimal valor, String descricao, String cpf, Long codProduto, String nome)  {
         Clientes cli = clientesRepo.findByCpf(cpf);
-        if(cli != null){
-           if(prod == null){
-            prod = new Produtos();
-            prod.setDescricao(descricao);
-            produtosRepo.save(prod);
-            }
-            Vendas vendas = new Vendas();
-            vendas.setData_venda(data_venda);
-            vendas.setValor(valor);
-            vendas.setClientes(cli);
-            vendas.setProdutos(new HashSet<Produtos>());
-            vendas.getProdutos().add(prod);
-            vendasRepo.save(vendas);
-            return vendas;
+        if(cli == null){
+            Clientes clientes = new Clientes();
+            clientes.setCpf(cpf);
+            clientes.setNome(nome);
+            clientesRepo.save(clientes);
         }
-        throw new Exception("Cliente não encontrado");
-        
+        Vendas vendas = new Vendas();
+        vendas.setData_venda(data_venda);
+        vendas.setValor(valor);
+        vendas.setClientes(cli);
+        vendas.setProdutos(new HashSet<Produtos>());
+        Produtos produtos = produtosRepo.findByCodProduto(codProduto);
+        vendas.getProdutos().add(produtos);
+        vendasRepo.save(vendas);
+        return vendas;
     }
     
 }
