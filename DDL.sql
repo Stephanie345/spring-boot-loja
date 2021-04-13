@@ -3,7 +3,7 @@ create schema db_loja;
 
 use db_loja;
 
-drop user 'stephanie'@'localhost';
+drop user if exists 'stephanie'@'localhost';
 
 create user stephanie@localhost identified by 'pass123';
 
@@ -56,6 +56,6 @@ CREATE TABLE IF NOT EXISTS db_loja.itens_vendas (
 
 insert into clientes(nome,cpf,telefone) values ('Sofia','1245678909','1234567890');
 insert into vendas(data_venda,valor,id_cliente) values ('2021-03-29','2.5','1');
-insert into produtos(descricao,preco,quant_estoque) values ('linha','2.5','10');
+insert into produtos(descricao,preco,quant_estoque,cod_produto) values ('linha','2.5','10','1');
 insert into itens_vendas values(1,1);
 
