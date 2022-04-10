@@ -18,7 +18,6 @@ public interface ClientesRepository extends JpaRepository<Clientes, Long> {
     @Query("select c from Clientes c where c.nome = ?1")
     public Clientes buscaClientePorNome(String nome);
 
-
     public Clientes findByNomeAndTelefone(String nome, String telefone);
 
     @Query("select c from Clientes c where c.nome = ?1 and c.telefone = ?2")

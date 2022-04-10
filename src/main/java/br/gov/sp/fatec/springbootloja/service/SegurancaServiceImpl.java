@@ -3,6 +3,8 @@ package br.gov.sp.fatec.springbootloja.service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +49,47 @@ public class SegurancaServiceImpl implements SegurancaService {
         vendasRepo.save(vendas);
         return vendas;
     }
+    @Override
+    public List<Vendas> buscarTodasVendas(){
+        return vendasRepo.findAll();
+        
+    }
     
+    @Override
+    public List<Clientes> buscarTodasClientes(){
+        return clientesRepo.findAll();
+        
+    }
+
+    @Override
+    public Clientes buscarClientesPorId(Long id) {
+        Optional<Clientes> clientesOp = clientesRepo.findById(id);
+        if(clientesOp.isPresent()){
+            return clientesOp.get();
+        }
+        throw new RuntimeException("Cliente não encontrado");
+    }
+
+    @Override
+    public Clientes buscarClientesPorNome(String nome){
+        Clientes clientes = clientesRepo.findByNome(nome);
+        if(clientes != null){
+            return clientes;
+        }
+        throw new RuntimeException("Cliente não encontrado");
+    }
+    public Clientes criarClientes(String nome, String cpf, String telefone){
+        Clientes clientes = new Clientes();
+        clientes.setNome(nome);
+        clientes.setCpf(cpf);
+        clientes.setTelefone(telefone);
+        clientesRepo.save(clientes);
+        return clientes;
+    }
+
+    
+
+    
+    
+  
 }

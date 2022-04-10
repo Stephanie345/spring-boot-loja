@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "vendas")
 public class Vendas {
@@ -35,10 +37,12 @@ public class Vendas {
     @Column(name = "valor")
     private BigDecimal  valor;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "itens_vendas",
                joinColumns = { @JoinColumn(name="id_venda")},
                inverseJoinColumns = { @JoinColumn(name="id_produto")})
+    @JsonIgnore
     private Set<Produtos> produtos;
 
     
