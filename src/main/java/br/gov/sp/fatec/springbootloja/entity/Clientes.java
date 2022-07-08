@@ -7,17 +7,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.springbootloja.controller.View;
 
 
 @Entity
 @Table(name = "clientes")
 public class Clientes {
     
+    @JsonView(View.ClientesResumo.class)
     @Id
     @Column(name = "id_cliente")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonView({View.ClientesResumo.class, View.VendasResumo.class})
     @Column(name = "nome")
     private String nome;
 

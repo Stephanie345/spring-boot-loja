@@ -16,17 +16,25 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.springbootloja.controller.View;
+
+
+
 
 @Entity
 @Table(name = "vendas")
 public class Vendas {
-
+    
+    @JsonView(View.VendasCompleto.class)
     @Id
     @Column(name = "id_venda")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonView(View.VendasResumo.class)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_cliente")
     private Clientes clientes;
@@ -37,12 +45,11 @@ public class Vendas {
     @Column(name = "valor")
     private BigDecimal  valor;
 
-
+    @JsonView(View.VendasResumo.class)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "itens_vendas",
                joinColumns = { @JoinColumn(name="id_venda")},
                inverseJoinColumns = { @JoinColumn(name="id_produto")})
-    @JsonIgnore
     private Set<Produtos> produtos;
 
     

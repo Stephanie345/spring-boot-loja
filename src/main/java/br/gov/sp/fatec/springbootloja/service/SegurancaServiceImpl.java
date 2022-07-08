@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.gov.sp.fatec.springbootloja.entity.Clientes;
 import br.gov.sp.fatec.springbootloja.entity.Produtos;
 import br.gov.sp.fatec.springbootloja.entity.Vendas;
+import br.gov.sp.fatec.springbootloja.exception.RegistroNaoEncontradoException;
 import br.gov.sp.fatec.springbootloja.respository.ClientesRepository;
 import br.gov.sp.fatec.springbootloja.respository.ProdutosRepository;
 import br.gov.sp.fatec.springbootloja.respository.VendasRepository;
@@ -67,7 +68,7 @@ public class SegurancaServiceImpl implements SegurancaService {
         if(clientesOp.isPresent()){
             return clientesOp.get();
         }
-        throw new RuntimeException("Cliente não encontrado");
+        throw new RegistroNaoEncontradoException("Cliente não encontrado");
     }
 
     @Override
@@ -76,7 +77,7 @@ public class SegurancaServiceImpl implements SegurancaService {
         if(clientes != null){
             return clientes;
         }
-        throw new RuntimeException("Cliente não encontrado");
+        throw new RegistroNaoEncontradoException("Cliente não encontrado");
     }
     public Clientes criarClientes(String nome, String cpf, String telefone){
         Clientes clientes = new Clientes();

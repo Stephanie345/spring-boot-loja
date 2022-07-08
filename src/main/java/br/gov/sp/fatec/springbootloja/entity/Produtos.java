@@ -12,20 +12,27 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.springbootloja.controller.View;
+
 
 
 @Entity
 @Table(name = "Produtos")
 public class Produtos {
     
+    @JsonView(View.VendasResumo.class)
     @Id
     @Column(name = "id_produto")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonView(View.VendasResumo.class)
     @Column(name = "descricao")
     private String descricao;
 
+    @JsonView(View.VendasResumo.class)
     @Column(name = "preco")
     private BigDecimal  preco;
 
