@@ -8,6 +8,7 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +52,7 @@ public class SegurancaServiceImpl implements SegurancaService {
         return vendas;
     }
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Vendas> buscarTodasVendas(){
         return vendasRepo.findAll();
         
