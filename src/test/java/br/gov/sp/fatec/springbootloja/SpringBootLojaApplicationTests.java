@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.springbootloja;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +13,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import br.gov.sp.fatec.springbootloja.entity.Clientes;
 import br.gov.sp.fatec.springbootloja.entity.Produtos;
@@ -25,7 +26,6 @@ import br.gov.sp.fatec.springbootloja.service.SegurancaService;
 
 @SpringBootTest
 @Transactional
-@Rollback
 class SpringBootLojaApplicationTests {
 
     @Autowired
@@ -40,11 +40,26 @@ class SpringBootLojaApplicationTests {
     @Autowired
     private SegurancaService segService;
 
-	@Test
-	void contextLoads() {
-        
-	}
+    @BeforeAll
+    static void init(@Autowired JdbcTemplate jdbcTemplate) {
+    jdbcTemplate.update(
+        "insert into clientes (nome,cpf,telefone) values(?,?,?)",
+            "Sofia","1245678909","1234567890");
+    jdbcTemplate.update(
+        "insert into vendas (data_venda,valor,id_cliente) values(?,?,?)",
+        "2021-03-29","2.5","1");
+    jdbcTemplate.update(
+        "insert into produtos (descricao,preco,quant_estoque,cod_produto) values(?,?,?,?)",
+        "linha","2.5","10","1");
+    jdbcTemplate.update(
+        "insert into itens_vendas (id_venda,id_produto) values(?,?)",
+        1L, 1L);
+  }
 
+	@Test
+	void contextLoads() {   
+	}
+    
     @Test
     void testaInsercao() {
         Clientes clientes = new Clientes();
