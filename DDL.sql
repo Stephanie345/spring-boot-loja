@@ -5,7 +5,7 @@ use db_loja;
 
 drop user if exists 'stephanie'@'localhost';
 
-create user stephanie@localhost identified by 'pass123';
+create user stephanie@localhost identified by 'stephanie123@';
 
 grant select, insert, delete, update on db_loja.* to stephanie@localhost;
 
@@ -53,9 +53,38 @@ CREATE TABLE IF NOT EXISTS db_loja.itens_vendas (
     REFERENCES db_loja.produtos (id_produto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+  
+CREATE TABLE IF NOT EXISTS db_loja.usr_usuario (
+  usr_id bigint unsigned not null auto_increment,
+  usr_nome varchar(20) not null,
+  usr_senha varchar(100) not null,
+  primary key (usr_id),
+  unique key uni_usuario_nome (usr_nome)
+);
+
+CREATE TABLE IF NOT EXISTS db_loja.aut_autorizacao (
+  aut_id bigint unsigned not null auto_increment,
+  aut_nome varchar(20) not null,
+  primary key (aut_id),
+  unique key uni_aut_nome (aut_nome)
+);
+
+CREATE TABLE IF NOT EXISTS db_loja.uau_usuario_autorizacao (
+  usr_id bigint unsigned not null,
+  aut_id bigint unsigned not null,
+  primary key (usr_id, aut_id),
+  foreign key aut_usuario_fk (usr_id) references usr_usuario (usr_id) on delete restrict on update cascade,
+  foreign key aut_autorizacao_fk (aut_id) references aut_autorizacao (aut_id) on delete restrict on update cascade
+);
+
 
 insert into clientes(nome,cpf,telefone) values ('Sofia','1245678909','1234567890');
 insert into vendas(data_venda,valor,id_cliente) values ('2021-03-29','2.5','1');
 insert into produtos(descricao,preco,quant_estoque,cod_produto) values ('linha','2.5','10','1');
 insert into itens_vendas values(1,1);
+insert into usr_usuario (usr_nome, usr_senha)
+    values ('admin', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C');
+insert into aut_autorizacao (aut_nome)
+    values ('ROLE_ADMIN');
+insert into uau_usuario_autorizacao values (1, 1);
 
